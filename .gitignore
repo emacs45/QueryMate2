@@ -1,4 +1,6 @@
 # Byte-compiled / optimized / DLL files
+backend/__pycache__
+frontend/__pycache__
 __pycache__/
 *.py[cod]
 *$py.class
@@ -172,3 +174,5 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+#
