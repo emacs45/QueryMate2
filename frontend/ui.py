@@ -21,8 +21,8 @@ except RuntimeError:
     asyncio.set_event_loop(asyncio.new_event_loop())
 
 # Streamlit Setup
-st.set_page_config(page_title="QueryMate", page_icon="🤖", layout="wide")
-st.title("QueryMate 🤖")
+st.set_page_config(page_title="QueryMate2", page_icon="🤖", layout="wide")
+st.title("QueryMate2 🤖")
 
 USER_AVATAR = "👤"
 BOT_AVATAR = "🤖"

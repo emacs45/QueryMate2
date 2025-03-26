@@ -1,5 +1,4 @@
 import argparse
-import os
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_ollama import OllamaEmbeddings
 from backend.config import DEFAULT_EMBEDDING_TYPE

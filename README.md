@@ -11,7 +11,7 @@
 
 ## 🔍 Features
 
-- 📄 ** PDF Upload & Processing**  
+- 📄 **PDF Upload & Processing**  
   Extracts and splits content from uploaded PDFs
 
 - 🧠 **Vector-based Knowledge Retrieval**  
@@ -31,8 +31,15 @@
   - Manual index refresh
   - Contextual Q&A interface
 
-- 📦 Privacy-First & Fully Local  
+- 📦 **Privacy-First & Fully Local**  
   - Runs entirely offline, no cloud dependency
+
+
+## 📊 Prerequisites
+
+- Ollama must be installed and running locally
+
+- Optional: *.env* file to override config variables (e.g. *EMBEDDING_TYPE*)
 
 ---
 
@@ -49,13 +56,24 @@ QueryMate2/
 │   └── logger.py               # Logging setup
 ├── frontend/
 │   ├── ui.py                   # Main UI logic (Streamlit)
-│   ├── sidebar.py             # Model selector, index actions
+│   ├── sidebar.py              # Model selector, index actions
 │   └── faq.py                  # Help/FAQ sidebar section
 ├── data/                       # Uploaded PDF documents
-├── models/chroma_index/       # Persistent vector index
-└── requirements.txt           # Python dependencies
+├── models/chroma_index/        # Persistent vector index
+└── requirements.txt            # Python dependencies
               
 ```
+
+---
+
+## 🛠 Developer Notes
+
+- Code is organized into `backend/`, `frontend/`, and `tests/`
+- Logging is configured via `backend/logger.py`
+- Embedding options (HuggingFace vs. Nomic) are set in `backend/config.py` or via CLI
+- Use `python backend/chroma_index.py --reset` to rebuild the document index
+- Run validation scripts from `tests/` or `backend/ollama_validation.py`
+
 ---
 
 ## ⚙️ Installation
@@ -105,6 +123,18 @@ python backend/chroma_index.py --reset
 | `OLLAMA_URL` | API URL if using requests method | *http://127.0.0.1:11434/api/generate*
 | `EMBEDDING_TYPE` | Embedding backend: huggingface or nomic | *huggingface*
 | `OLLAMA_MODEL` | Default LLM model | *mistral:latest*
+
+### 🔑 Environment Configuration
+
+Copy the example .env file and modify it as needed:
+
+```sh
+
+cp .env.example .env
+
+```
+
+---
 
 ### 🧪 Sample Use Case
 

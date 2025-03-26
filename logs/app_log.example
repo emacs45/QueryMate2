@@ -1,0 +1,6 @@
+2025-03-26 17:36:06,183 - INFO - QueryMate: 🔧 Verwendetes Embedding: nomic-embed-text (Ollama)
+2025-03-26 17:36:06,222 - INFO - QueryMate: 🔧 Verwendetes Embedding: sentence-transformers/all-MiniLM-L6-v2
+2025-03-26 17:36:10,466 - INFO - QueryMate: 🔍 Eingehende Anfrage: 'Was ist KI?' mit Modell: mistral:latest (Methode: library)
+2025-03-26 17:36:10,466 - INFO - QueryMate: 🔧 Verwendetes Embedding: nomic-embed-text (Ollama)
+2025-03-26 17:36:10,630 - WARNING - QueryMate: ⚠️ Keine passenden Ergebnisse für Anfrage: Was ist KI?
+2025-03-26 17:36:11,727 - INFO - QueryMate: ✅ Erfolgreiche Antwort erhalten.

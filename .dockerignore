@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.env
+models/
+data/
+*.log
+*.gif
+chroma/
+.idea/
+*.sqlite3

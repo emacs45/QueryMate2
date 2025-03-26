@@ -1,0 +1,17 @@
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+extend-exclude = ["models", "venv", ".venv", "build"]
+show-source = true
+fix = true
+unsafe-fixes = false
+preview = true
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = ["E501"]  # Zeilenlänge ignorieren (optional)
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"

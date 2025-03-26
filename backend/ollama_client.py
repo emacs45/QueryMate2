@@ -2,8 +2,7 @@ import argparse
 import requests
 import ollama
 from backend.chroma_index import query_chroma
-from backend.embedding import get_embedding_function
-from backend.config import OLLAMA_URL, DEFAULT_EMBEDDING_TYPE
+from backend.config import OLLAMA_URL
 from backend.logger import app_logger
 
 
@@ -48,7 +47,7 @@ def ask_ollama(question: str, model: str, method: str):
             response = requests.post(OLLAMA_URL, json=payload)
             response.raise_for_status()
             result = response.json().get("response", "⚠️ Keine Antwort erhalten.")
-            app_logger.info(f"✅ Erfolgreiche Antwort erhalten.")
+            app_logger.info("✅ Erfolgreiche Antwort erhalten.")
             return result
         except requests.exceptions.RequestException as e:
             app_logger.error(f"🚨 Fehler bei der Ollama-Anfrage: {str(e)}")

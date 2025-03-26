@@ -19,7 +19,7 @@ Path(CHROMA_INDEX_PATH).mkdir(parents=True, exist_ok=True)
 Path(DATA_DIR).mkdir(parents=True, exist_ok=True)
 
 # Embedding wird beim Start im Main gesetzt
-embeddings = None
+embeddings = DEFAULT_EMBEDDING_TYPE
 
 def clear_chroma_index():
     if os.path.exists(CHROMA_INDEX_PATH):
