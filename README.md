@@ -84,7 +84,7 @@ QueryMate2/
 
 ```sh
 git clone https://github.com/emacs45/querymate2.git
-cd querymate
+cd querymate2
 ```
 
 2. Create a virtual environment
