@@ -91,7 +91,8 @@ cd querymate2
 
 ```sh
 python3 -m venv venv
-source venv/bin/activate
+source venv/bin/activate # for Linux and macOS systems
+# source venv/Scripts/activate for Windows systems
 ```
 
 3. Install dependencies
