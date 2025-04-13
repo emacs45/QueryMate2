@@ -76,6 +76,8 @@ QueryMate2/
 
 ## ⚙️ Installation
 
+
+
 ### Running the Application
 
 1. Clone the Repository:
@@ -97,6 +99,33 @@ venv/Scripts/activate # for Windows systems
 
 ```sh
 pip install -r requirements.txt
+```
+
+#### ⚠️ If you're installing this project on Windows and encounter errors when running the command above, especially this error:
+
+```
+error: Microsoft Visual C++ 14.0 or greater is required.
+```
+
+It means your system is missing required C++ build tools for packages like `chroma-hnswlib`
+
+#### ✅ Solution
+1. Install Microsoft C++ Build Tools:
+    - Download [here](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
+
+2. Open the Installer and choose "Modify" on your current installation or start a new one
+    - Go to the "Individual Components" tab and select:
+    - MSVC v143 - C++ Build Tools
+    - Windows 11 SDK (10.0.22621.0)
+    - C++ CMake Tools for Windows
+
+3. Alternatively, you can select the whole "Desktop development with C++" workload for simplicity
+
+4. Reboot your system (recommended)
+   - (Optional) Install virtualenv manually: If you encounter issues with python -m venv venv, you might need to install virtualenv first:
+
+```
+python -m pip install virtualenv
 ```
 
 ---
