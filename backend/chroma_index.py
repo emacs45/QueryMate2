@@ -95,14 +95,22 @@ def load_pdfs_and_index():
     add_to_chroma(chunks)
 
 def query_chroma(query, top_k=20, embeddings=None):
+    """
+    Führt eine semantische Suche mit ChromaDB durch.
+
+    :param query: Die Suchanfrage als Text.
+    :param top_k: Anzahl der zurückgegebenen Top-Ergebnisse.
+    :param embeddings: Optional: eine eigene Embedding-Funktion.
+    :return: Liste von Seiteninhalten der besten Treffer.
+    """
 
     if embeddings is None:
         embeddings = get_embedding_function(DEFAULT_EMBEDDING_TYPE)
-        app_logger.debug("🔧 Kein Embedding übergeben - Standard wird verwendet.")
+        app_logger.debug("🔧 Kein Embedding übergeben")
 
     if not os.path.exists(CHROMA_INDEX_PATH):
         app_logger.warning("⚠️ Kein Chroma-Index gefunden! Bitte zuerst PDFs indexieren.")
-        return ["⚠️ Keine relevanten Informationen gefunden."]
+        return ["⚠️ Kein Chroma-Index gefunden! Bitte zuerst PDFs indexieren."]
 
     vectorstore = Chroma(persist_directory=CHROMA_INDEX_PATH, embedding_function=embeddings)
     results = vectorstore.similarity_search(query, k=top_k)
@@ -117,12 +125,8 @@ def query_chroma(query, top_k=20, embeddings=None):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--reset", action="store_true", help="Chroma-Index zurücksetzen")
-    parser.add_argument("--embedding", default=DEFAULT_EMBEDDING_TYPE, choices=["huggingface", "nomic"],
-                        help="Welcher Embedding-Typ soll verwendet werden?")
     args = parser.parse_args()
 
-    global embeddings
-    embeddings = get_embedding_function(args.embedding)
 #    print(f"📦 [DEBUG] Verwende Typ: {args.embedding}")
 
     if args.reset:

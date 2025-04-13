@@ -12,7 +12,7 @@ def sidebar():
     # Modell-Auswahl speichern
     llm_option = st.sidebar.selectbox(
         "Modell auswählen",
-        ["llama3.1:8b", "gemma3:12b", "mistral:latest"]
+        ["llama3.1:8b", "gemma3:12b", "mistral:latest", "deepseek-r1:14b"]
     )
     st.session_state["selected_model"] = llm_option
     app_logger.info(f"🔍 Modell ausgewählt: {llm_option}")

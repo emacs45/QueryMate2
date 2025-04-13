@@ -19,11 +19,11 @@
 
 - 🔌 **LLM Support (Local)**  
   Uses models from [Ollama](https://ollama.com/)  
-  → e.g. `mistral`, `llama3`, `gemma`, `nomic-embed-text`
+  → e.g. `mistral`, `llama3`, `gemma`, `nomic-embed-text`, `deepseek-r1`
 
 - 🧬 **Embedding Backend Selection**  
-  - HuggingFace (`sentence-transformers`)
-  - Ollama (`nomic-embed-text`)
+  - HuggingFace (`all-MiniLM-L6-v2`, `BAAI/bge-base-en-v1.5`)
+  - Ollama (`nomic-embed-text`, `mxbai-embed-large`)
 
 - 💬 **User-Friendly Streamlit Interface**  
   - LLM model selection
@@ -38,8 +38,6 @@
 ## 📊 Prerequisites
 
 - Ollama must be installed and running locally
-
-- Optional: *.env* file to override config variables (e.g. *EMBEDDING_TYPE*)
 
 ---
 
@@ -92,7 +90,7 @@ cd querymate2
 ```sh
 python3 -m venv venv
 source venv/bin/activate # for Linux and macOS systems
-# source venv/Scripts/activate for Windows systems
+venv/Scripts/activate # for Windows systems
 ```
 
 3. Install dependencies
@@ -108,15 +106,15 @@ pip install -r requirements.txt
 #### Launch the Web UI:
 
 ```sh
-streamlit run frontend/ui.py
+python3 run-streamlit.py
 ```
 
-#### (Optional) Reset and reindex PDFs:
+#### ⚠️ After changing the embedding model, you must reset and reindex your PDFs manually:
 ```sh
 python backend/chroma_index.py --reset
 ```
 
-#### ⚙️ Configuration (via config.py or environment variables)
+#### ⚙️ Configuration (via config.py)
 
 | Variable | Description | Default value |
 | --- | --- | --- |
@@ -125,15 +123,6 @@ python backend/chroma_index.py --reset
 | `EMBEDDING_TYPE` | Embedding backend: huggingface or nomic | *huggingface*
 | `OLLAMA_MODEL` | Default LLM model | *mistral:latest*
 
-### 🔑 Environment Configuration
-
-Copy the example .env file and modify it as needed:
-
-```sh
-
-cp .env.example .env
-
-```
 
 ---
 

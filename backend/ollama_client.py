@@ -47,7 +47,6 @@ def ask_ollama(question: str, model: str, method: str):
             response = requests.post(OLLAMA_URL, json=payload)
             response.raise_for_status()
             result = response.json().get("response", "⚠️ Keine Antwort erhalten.")
-            app_logger.info("✅ Erfolgreiche Antwort erhalten.")
             return result
         except requests.exceptions.RequestException as e:
             app_logger.error(f"🚨 Fehler bei der Ollama-Anfrage: {str(e)}")
@@ -58,7 +57,6 @@ def ask_ollama(question: str, model: str, method: str):
         try:
             response = ollama.chat(model=model, messages=[{"role": "user", "content": prompt}])
             result = response.get("message", {}).get("content", "⚠️ Keine Antwort erhalten.")
-            app_logger.info("✅ Erfolgreiche Antwort erhalten.")
             return result
         except Exception as e:
             app_logger.error(f"🚨 Fehler bei der Ollama-Anfrage: {str(e)}")
