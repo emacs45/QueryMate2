@@ -1,5 +1,9 @@
 from pathlib import Path
 import os
+import sys
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import shutil
 import argparse
 from langchain_chroma import Chroma
@@ -19,7 +23,7 @@ Path(CHROMA_INDEX_PATH).mkdir(parents=True, exist_ok=True)
 Path(DATA_DIR).mkdir(parents=True, exist_ok=True)
 
 # Embedding wird beim Start im Main gesetzt
-embeddings = DEFAULT_EMBEDDING_TYPE
+embeddings = get_embedding_function(DEFAULT_EMBEDDING_TYPE)
 
 def clear_chroma_index():
     if os.path.exists(CHROMA_INDEX_PATH):

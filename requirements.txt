@@ -1,6 +1,11 @@
 chromadb
 sentence-transformers
 langchain
+langchain-community
+langchain-chroma
+langchain-huggingface
+langchain-ollama
+pypdf
 pypdf2
 streamlit
 requests

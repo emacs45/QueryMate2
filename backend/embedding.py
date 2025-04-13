@@ -1,6 +1,11 @@
 import argparse
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_ollama import OllamaEmbeddings
+
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from backend.config import DEFAULT_EMBEDDING_TYPE
 from backend.logger import app_logger
 
