@@ -2,19 +2,19 @@ import asyncio
 import streamlit as st
 import os
 from backend.ollama_client import ask_ollama
-from backend.chroma_index import query_chroma
 from backend.config import OLLAMA_METHOD, DEFAULT_EMBEDDING_TYPE
 from backend.embedding import get_embedding_function
-from backend.logger import app_logger  # Logger importiert
+from backend.logger import app_logger
 from frontend.sidebar import sidebar
 from frontend.faq import faq
 
 # Log-Start der UI
 app_logger.info("🔵 QueryMate UI gestartet.")
 
+# Embedding-Funktion initialisieren
 embeddings = get_embedding_function(DEFAULT_EMBEDDING_TYPE)
 
-# Deaktiviere JIT für Streamlit
+# Deaktiviere JIT für Streamlit (Workaround für event loop Konflikte)
 try:
     asyncio.get_running_loop()
 except RuntimeError:
@@ -70,28 +70,14 @@ if prompt := st.chat_input("Wie kann ich helfen?"):
         message_placeholder = st.empty()
         full_response = ""
 
-        # Chroma-Abfrage ausführen
-        try:
-            chroma_response = query_chroma(prompt, embeddings=embeddings)
-            context = "\n\n".join(chroma_response) if chroma_response else "Keine relevanten Informationen gefunden."
-            app_logger.info(f"✅ ChromaDB hat {len(chroma_response)} passende Ergebnisse für die Anfrage gefunden.")
-        except Exception as e:
-            app_logger.error(f"🚨 Fehler bei der Chroma-Abfrage: {str(e)}")
-            context = "Keine relevanten Informationen gefunden."
+        selected_model = st.session_state.get("selected_model", "mistral:latest")
 
-        # Falls keine relevanten Infos in Chroma gefunden wurden
-        if not context or "Keine relevanten Informationen gefunden." in context:
-            full_response = "⚠️ Ich konnte dazu leider keine passenden Informationen finden."
-            app_logger.warning("⚠️ Keine relevanten Informationen gefunden.")
-        else:
-            # Ollama LLM verwenden
-            selected_model = st.session_state.get("selected_model", "mistral:latest")
-            try:
-                full_response = ask_ollama(prompt, model=selected_model, method=OLLAMA_METHOD)
-                app_logger.info(f"✅ Erfolgreiche Antwort von {selected_model} erhalten.")
-            except Exception as e:
-                app_logger.error(f"🚨 Fehler bei der Ollama-Anfrage: {str(e)}")
-                full_response = "⚠️ Fehler bei der Verarbeitung der Anfrage."
+        try:
+            full_response = ask_ollama(prompt, model=selected_model, method=OLLAMA_METHOD)
+            app_logger.info(f"✅ Antwort von {selected_model} erhalten.")
+        except Exception as e:
+            app_logger.error(f"🚨 Fehler bei der Ollama-Anfrage: {str(e)}")
+            full_response = "⚠️ Fehler bei der Verarbeitung der Anfrage."
 
         message_placeholder.markdown(full_response)
 

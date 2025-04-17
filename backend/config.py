@@ -1,5 +1,3 @@
-import os
-
 # Wähle die Methode für Ollama: "requests" oder "library"
 OLLAMA_METHOD = "library"  # Standard: "library"
 

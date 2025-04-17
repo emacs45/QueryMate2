@@ -5,6 +5,7 @@ langchain-community
 langchain-chroma
 langchain-huggingface
 langchain-ollama
+langchain-text-splitters
 pypdf
 pypdf2
 streamlit

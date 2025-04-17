@@ -26,15 +26,25 @@ def ask_ollama(question: str, model: str, method: str):
     ### Kontext aus Unternehmensdokumenten:
     {context_text}
 
-    ---  
+    ---
     **Anweisung:**  
-    - Verwende nur die Informationen aus dem Kontext.
-    - Falls keine passenden Informationen vorhanden sind, sage "Ich konnte dazu keine Information finden."
-    - Fasse die Informationen klar und verständlich zusammen.
+    - Verwende nur die Informationen aus dem Kontext.  
+    - Wenn du keine passende Information findest, antworte mit: „Ich konnte dazu keine Information finden.“  
+    - Fasse die Informationen klar, verständlich und sachlich zusammen.  
+    - Antworte in der Sprache der Frage.  
+    - Füge nur dann Inline-Zitate im Format [source_id] ein, wenn das Tag <source_id> explizit im Kontext vorhanden ist.  
+    - Verwende keine XML-Tags in deiner Antwort.  
+    - Wenn der Kontext unvollständig oder schwer verständlich ist, weise höflich darauf hin und gib die bestmögliche Antwort.  
+    - Wenn du die Antwort kennst, aber sie nicht im Kontext vorkommt, erkläre das ehrlich und antworte aus deinem Wissen.  
+    - Zitiere nur relevante Stellen und sei dabei knapp und präzise.
+
+    **Beispiel für ein korrektes Zitat:**  
+    „Die Methode verbessert die Systemleistung um 20 % [whitepaper.pdf].“
 
     **Frage:**  
     {question}
     """
+
 
     if method == "requests":
         # Methode mit `requests`

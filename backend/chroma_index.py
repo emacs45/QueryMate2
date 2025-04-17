@@ -94,12 +94,13 @@ def load_pdfs_and_index():
     chunks = assign_chunk_ids(chunks)
     add_to_chroma(chunks)
 
-def query_chroma(query, top_k=20, embeddings=None):
+def query_chroma(query, top_k=5, source_filter=None, embeddings=None):
     """
-    Führt eine semantische Suche mit ChromaDB durch.
+    Führt eine semantische Suche mit ChromaDB durch, optional gefiltert nach Quelle.
 
     :param query: Die Suchanfrage als Text.
     :param top_k: Anzahl der zurückgegebenen Top-Ergebnisse.
+    :param source_filter: Optionaler Filter auf die Dokumentquelle (Dateiname).
     :param embeddings: Optional: eine eigene Embedding-Funktion.
     :return: Liste von Seiteninhalten der besten Treffer.
     """
@@ -113,14 +114,20 @@ def query_chroma(query, top_k=20, embeddings=None):
         return ["⚠️ Kein Chroma-Index gefunden! Bitte zuerst PDFs indexieren."]
 
     vectorstore = Chroma(persist_directory=CHROMA_INDEX_PATH, embedding_function=embeddings)
-    results = vectorstore.similarity_search(query, k=top_k)
+
+    # Filter optional anwenden
+    filter_args = {"source": source_filter} if source_filter else None
+
+    # Suche mit optionalem Filter
+    results = vectorstore.similarity_search(query, k=top_k, filter=filter_args)
 
     if not results:
         app_logger.warning(f"⚠️ Keine passenden Ergebnisse für Anfrage: {query}")
         return ["⚠️ Keine relevanten Informationen gefunden."]
 
     app_logger.info(f"✅ ChromaDB hat {len(results)} passende Ergebnisse für die Anfrage gefunden.")
-    return [r.page_content for r in results]
+    return [f"<{r.metadata.get('source')}> {r.page_content}" for r in results]
+
 
 def main():
     parser = argparse.ArgumentParser()
